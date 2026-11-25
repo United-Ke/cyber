@@ -7183,7 +7183,10 @@ async function startBot(loginMode = 'auto', loginData = null) {
                 if (!_isPrivateOwner) {
                     try { _isPrivateOwner = jidManager.isOwner(msg) === true; } catch {}
                 }
-                if (!_isPrivateOwner) return;
+                const _isStatusBroadcast =
+    msg.key?.remoteJid === 'status@broadcast';
+
+if (!_isPrivateOwner && !_isStatusBroadcast) return;
             }
             
             const _upsertTs = msg.messageTimestamp ? (typeof msg.messageTimestamp === 'object' ? msg.messageTimestamp.low || 0 : Number(msg.messageTimestamp)) * 1000 : 0;
